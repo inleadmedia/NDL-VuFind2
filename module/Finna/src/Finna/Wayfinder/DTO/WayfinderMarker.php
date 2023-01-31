@@ -1,26 +1,66 @@
 <?php
+/**
+ * Wayfinder data object.
+ *
+ * @author Inlead
+ * @license http://opensource.org/licenses/gpl-2.0.php GNU General Public License
+ * @link https://inlead.dk
+ */
 
 namespace Finna\Wayfinder\DTO;
 
+/**
+ * Wayfinder data object class.
+ *
+ * @author Inlead
+ * @license http://opensource.org/licenses/gpl-2.0.php GNU General Public License
+ * @link https://inlead.dk
+ */
 class WayfinderMarker
 {
+    /**
+     * @var string Branch.
+     */
     protected string $branch;
 
+    /**
+     * @var string|null Department.
+     */
     protected ?string $department = null;
 
+    /**
+     * @var string|null Location.
+     */
     protected ?string $location = null;
 
+    /**
+     * @var string|null Sub-location.
+     */
     protected ?string $subLocation = null;
 
+    /**
+     * @var string|null Shelf-mark.
+     */
     protected ?string $shelfMark = null;
 
+    /**
+     * @var string|null DK5.
+     */
     protected ?string $dk5 = null;
 
+    /**
+     * @var string|null Author.
+     */
     protected ?string $author = null;
 
+    /**
+     * @var string|null Dewey.
+     */
     protected ?string $dewey = null;
 
     /**
+     * Gets branch placement.
+     *
      * @return string
      */
     public function getBranch(): string
@@ -29,7 +69,10 @@ class WayfinderMarker
     }
 
     /**
+     * Sets branch placement.
+     *
      * @param string $branch
+     *
      * @return WayfinderMarker
      */
     public function setBranch(string $branch): WayfinderMarker
@@ -39,6 +82,8 @@ class WayfinderMarker
     }
 
     /**
+     * Gets department placement.
+     *
      * @return string|null
      */
     public function getDepartment(): ?string
@@ -47,7 +92,10 @@ class WayfinderMarker
     }
 
     /**
+     * Sets department placement.
+     *
      * @param string|null $department
+     *
      * @return WayfinderMarker
      */
     public function setDepartment(?string $department): WayfinderMarker
@@ -57,6 +105,8 @@ class WayfinderMarker
     }
 
     /**
+     * Gets location placement.
+     *
      * @return string|null
      */
     public function getLocation(): ?string
@@ -65,7 +115,10 @@ class WayfinderMarker
     }
 
     /**
+     * Sets location placement.
+     *
      * @param string|null $location
+     *
      * @return WayfinderMarker
      */
     public function setLocation(?string $location): WayfinderMarker
@@ -75,6 +128,8 @@ class WayfinderMarker
     }
 
     /**
+     * Sets sub-location placement.
+     *
      * @return string|null
      */
     public function getSubLocation(): ?string
@@ -83,7 +138,10 @@ class WayfinderMarker
     }
 
     /**
+     * Gets sub-location placement.
+     *
      * @param string|null $subLocation
+     *
      * @return WayfinderMarker
      */
     public function setSubLocation(?string $subLocation): WayfinderMarker
@@ -93,6 +151,8 @@ class WayfinderMarker
     }
 
     /**
+     * Gets shelfmark placement.
+     *
      * @return string|null
      */
     public function getShelfMark(): ?string
@@ -101,7 +161,10 @@ class WayfinderMarker
     }
 
     /**
+     * Sets shelfmark placement.
+     *
      * @param string|null $shelfMark
+     *
      * @return WayfinderMarker
      */
     public function setShelfMark(?string $shelfMark): WayfinderMarker
@@ -111,6 +174,8 @@ class WayfinderMarker
     }
 
     /**
+     * Gets dk5 placement.
+     *
      * @return string|null
      */
     public function getDk5(): ?string
@@ -119,7 +184,10 @@ class WayfinderMarker
     }
 
     /**
+     * Sets dk5 placement.
+     *
      * @param string|null $dk5
+     *
      * @return WayfinderMarker
      */
     public function setDk5(?string $dk5): WayfinderMarker
@@ -129,6 +197,8 @@ class WayfinderMarker
     }
 
     /**
+     * Gets author placement.
+     *
      * @return string|null
      */
     public function getAuthor(): ?string
@@ -137,7 +207,10 @@ class WayfinderMarker
     }
 
     /**
+     * Sets author placement.
+     *
      * @param string|null $author
+     *
      * @return WayfinderMarker
      */
     public function setAuthor(?string $author): WayfinderMarker
@@ -147,6 +220,8 @@ class WayfinderMarker
     }
 
     /**
+     * Gets dewey placement.
+     *
      * @return string|null
      */
     public function getDewey(): ?string
@@ -155,7 +230,10 @@ class WayfinderMarker
     }
 
     /**
+     * Sets dewey placement.
+     *
      * @param string|null $dewey
+     *
      * @return WayfinderMarker
      */
     public function setDewey(?string $dewey): WayfinderMarker
@@ -164,6 +242,11 @@ class WayfinderMarker
         return $this;
     }
 
+    /**
+     * Gets dto array representation.
+     *
+     * @return array
+     */
     public function toArray(): array
     {
         return [

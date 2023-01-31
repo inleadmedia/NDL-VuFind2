@@ -1,4 +1,11 @@
 <?php
+/**
+ * Wayfinder service integration.
+ *
+ * @author Inlead
+ * @license http://opensource.org/licenses/gpl-2.0.php GNU General Public License
+ * @link https://inlead.dk
+ */
 
 namespace Finna\Wayfinder;
 
@@ -8,10 +15,13 @@ use Laminas\Log\LoggerInterface;
 use VuFindHttp\HttpServiceInterface;
 
 /**
- * Wayfinder Service.
+ * Wayfinder service.
  *
- * @category VuFind
- * @package  Content
+ * @category Wayfinder
+ * @package  Wayfinder
+ * @author Inlead
+ * @license http://opensource.org/licenses/gpl-2.0.php GNU General Public License
+ * @link https://inlead.dk
  */
 class WayfinderService extends \Laminas\View\Helper\AbstractHelper
 {

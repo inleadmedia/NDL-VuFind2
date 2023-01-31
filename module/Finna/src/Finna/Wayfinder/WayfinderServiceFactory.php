@@ -1,4 +1,11 @@
 <?php
+/**
+ * Wayfinder service factory.
+ *
+ * @author Inlead
+ * @license http://opensource.org/licenses/gpl-2.0.php GNU General Public License
+ * @link https://inlead.dk
+ */
 
 namespace Finna\Wayfinder;
 
@@ -8,6 +15,13 @@ use Laminas\ServiceManager\Factory\FactoryInterface;
 use Psr\Container\ContainerExceptionInterface as ContainerException;
 use Psr\Container\ContainerInterface;
 
+/**
+ * Wayfinder service factory.
+ *
+ * @author Inlead
+ * @license http://opensource.org/licenses/gpl-2.0.php GNU General Public License
+ * @link https://inlead.dk
+ */
 class WayfinderServiceFactory implements FactoryInterface
 {
     /**
