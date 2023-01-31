@@ -2,9 +2,9 @@
 /**
  * Wayfinder service factory.
  *
- * @author Inlead
+ * @author  Inlead <support@inlead.dk>
  * @license http://opensource.org/licenses/gpl-2.0.php GNU General Public License
- * @link https://inlead.dk
+ * @link    https://inlead.dk
  */
 
 namespace Finna\Wayfinder;
@@ -18,9 +18,11 @@ use Psr\Container\ContainerInterface;
 /**
  * Wayfinder service factory.
  *
- * @author Inlead
- * @license http://opensource.org/licenses/gpl-2.0.php GNU General Public License
- * @link https://inlead.dk
+ * @category Wayfinder
+ * @package  Wayfinder
+ * @author   Inlead <support@inlead.dk>
+ * @license  http://opensource.org/licenses/gpl-2.0.php GNU General Public License
+ * @link     https://inlead.dk
  */
 class WayfinderServiceFactory implements FactoryInterface
 {
@@ -47,7 +49,8 @@ class WayfinderServiceFactory implements FactoryInterface
             throw new \Exception('Unexpected options passed to factory.');
         }
         return new $requestedName(
-            $container->get(\VuFind\Config\PluginManager::class)
+            $container
+                ->get(\VuFind\Config\PluginManager::class)
                 ->get('WayfinderService'),
             $container->get(\VuFindHttp\HttpService::class),
             $container->get(\VuFind\Log\Logger::class)

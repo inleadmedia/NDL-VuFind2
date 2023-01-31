@@ -2,9 +2,9 @@
 /**
  * Wayfinder data object.
  *
- * @author Inlead
+ * @author  Inlead <support@inlead.dk>
  * @license http://opensource.org/licenses/gpl-2.0.php GNU General Public License
- * @link https://inlead.dk
+ * @link    https://inlead.dk
  */
 
 namespace Finna\Wayfinder\DTO;
@@ -12,49 +12,67 @@ namespace Finna\Wayfinder\DTO;
 /**
  * Wayfinder data object class.
  *
- * @author Inlead
- * @license http://opensource.org/licenses/gpl-2.0.php GNU General Public License
- * @link https://inlead.dk
+ * @category Wayfinder
+ * @package  Wayfinder
+ * @author   Inlead <support@inlead.dk>
+ * @license  http://opensource.org/licenses/gpl-2.0.php GNU General Public License
+ * @link     https://inlead.dk
  */
 class WayfinderMarker
 {
     /**
-     * @var string Branch.
+     * Branch placement.
+     *
+     * @var string
      */
     protected string $branch;
 
     /**
-     * @var string|null Department.
+     * Department placement.
+     *
+     * @var string|null
      */
     protected ?string $department = null;
 
     /**
-     * @var string|null Location.
+     * Location placement.
+     *
+     * @var string|null
      */
     protected ?string $location = null;
 
     /**
-     * @var string|null Sub-location.
+     * Sub-location placement.
+     *
+     * @var string|null
      */
     protected ?string $subLocation = null;
 
     /**
-     * @var string|null Shelf-mark.
+     * Shelf-mark placement.
+     *
+     * @var string|null
      */
     protected ?string $shelfMark = null;
 
     /**
-     * @var string|null DK5.
+     * DK5 placement.
+     *
+     * @var string|null
      */
     protected ?string $dk5 = null;
 
     /**
-     * @var string|null Author.
+     * Author placement.
+     *
+     * @var string|null
      */
     protected ?string $author = null;
 
     /**
-     * @var string|null Dewey.
+     * Dewey placement.
+     *
+     * @var string|null
      */
     protected ?string $dewey = null;
 
@@ -71,7 +89,7 @@ class WayfinderMarker
     /**
      * Sets branch placement.
      *
-     * @param string $branch
+     * @param string $branch Branch placement.
      *
      * @return WayfinderMarker
      */
@@ -94,7 +112,7 @@ class WayfinderMarker
     /**
      * Sets department placement.
      *
-     * @param string|null $department
+     * @param string|null $department Department placement.
      *
      * @return WayfinderMarker
      */
@@ -117,7 +135,7 @@ class WayfinderMarker
     /**
      * Sets location placement.
      *
-     * @param string|null $location
+     * @param string|null $location Location placement.
      *
      * @return WayfinderMarker
      */
@@ -140,7 +158,7 @@ class WayfinderMarker
     /**
      * Gets sub-location placement.
      *
-     * @param string|null $subLocation
+     * @param string|null $subLocation Sub-location placement.
      *
      * @return WayfinderMarker
      */
@@ -161,9 +179,9 @@ class WayfinderMarker
     }
 
     /**
-     * Sets shelfmark placement.
+     * Sets shelf-mark placement.
      *
-     * @param string|null $shelfMark
+     * @param string|null $shelfMark Shelf-mark placement.
      *
      * @return WayfinderMarker
      */
@@ -186,7 +204,7 @@ class WayfinderMarker
     /**
      * Sets dk5 placement.
      *
-     * @param string|null $dk5
+     * @param string|null $dk5 DK5 placement.
      *
      * @return WayfinderMarker
      */
@@ -209,7 +227,7 @@ class WayfinderMarker
     /**
      * Sets author placement.
      *
-     * @param string|null $author
+     * @param string|null $author Author placement.
      *
      * @return WayfinderMarker
      */
@@ -232,7 +250,7 @@ class WayfinderMarker
     /**
      * Sets dewey placement.
      *
-     * @param string|null $dewey
+     * @param string|null $dewey Dewey value.
      *
      * @return WayfinderMarker
      */
