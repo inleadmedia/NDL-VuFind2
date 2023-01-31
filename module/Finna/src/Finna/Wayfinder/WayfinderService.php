@@ -53,9 +53,9 @@ class WayfinderService extends \Laminas\View\Helper\AbstractHelper
     /**
      * Constructor.
      *
-     * @param \Laminas\Config\Config $config                Configuration.
+     * @param \Laminas\Config\Config           $config      Configuration.
      * @param \VuFindHttp\HttpServiceInterface $httpService HTTP service.
-     * @param \Laminas\Log\LoggerInterface $logger          Logger service.
+     * @param \Laminas\Log\LoggerInterface     $logger      Logger service.
      */
     public function __construct(
         $config,
@@ -122,13 +122,7 @@ class WayfinderService extends \Laminas\View\Helper\AbstractHelper
         $response = $this->httpService->get($url, $params);
 
         if ($response->getStatusCode() !== Response::STATUS_CODE_200) {
-            $this->logger->warn(
-                sprintf(
-                    "[Wayfinder] Failed to get placement marker from url [%s]. Status code [%d].",
-                    $url,
-                    $response->getStatusCode()
-                )
-            );
+            $this->logger->warn("[Wayfinder] Failed to get placement marker from url [{$url}]. Status code [{$response->getStatusCode()}].");
             return '';
         }
 
@@ -136,13 +130,7 @@ class WayfinderService extends \Laminas\View\Helper\AbstractHelper
         if (empty($decoded['link'])) {
             $this
                 ->logger
-                ->warn(
-                    sprintf(
-                        "[Wayfinder] Failed to decode response from url [%s]. Response [%s]",
-                        $url,
-                        $response->getContent()
-                    )
-                );
+                ->warn("[Wayfinder] Failed to decode response from url [{$url}]. Response [{$response->getContent()}]");
             return '';
         }
 
