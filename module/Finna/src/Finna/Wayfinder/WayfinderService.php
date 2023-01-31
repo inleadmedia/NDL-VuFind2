@@ -10,7 +10,6 @@
  * @license  http://opensource.org/licenses/gpl-2.0.php GNU General Public License
  * @link     https://inlead.dk
  */
-
 namespace Finna\Wayfinder;
 
 use Finna\Wayfinder\DTO\WayfinderMarker;
@@ -91,7 +90,8 @@ class WayfinderService extends \Laminas\View\Helper\AbstractHelper
         $markerUrl = $this->fetchMarker($wayfinderDto->toArray());
 
         return $this->getView()->render(
-            'Wayfinder/marker.phtml', [
+            'Wayfinder/marker.phtml',
+            [
                 'marker_url' => $markerUrl,
                 'marker_label' => 'Wayfinder',
             ]
@@ -110,7 +110,8 @@ class WayfinderService extends \Laminas\View\Helper\AbstractHelper
         $args = array_map(
             function ($v) {
                 return trim($v);
-            }, $args
+            },
+            $args
         );
         $params = array_filter($args);
 

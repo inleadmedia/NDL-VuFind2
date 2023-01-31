@@ -10,7 +10,6 @@
  * @license  http://opensource.org/licenses/gpl-2.0.php GNU General Public License
  * @link     https://inlead.dk
  */
-
 namespace Finna\Wayfinder\DTO;
 
 /**
@@ -282,6 +281,4 @@ class WayfinderMarker
             'dewey' => $this->dewey,
         ];
     }
-
-
 }
