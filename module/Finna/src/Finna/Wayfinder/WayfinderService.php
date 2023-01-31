@@ -105,7 +105,8 @@ class WayfinderService extends \Laminas\View\Helper\AbstractHelper
      *
      * @return string
      */
-    protected function fetchMarker(array $args): string {
+    protected function fetchMarker(array $args): string
+    {
         $args = array_map(
             function ($v) {
                 return trim($v);
@@ -122,15 +123,21 @@ class WayfinderService extends \Laminas\View\Helper\AbstractHelper
         $response = $this->httpService->get($url, $params);
 
         if ($response->getStatusCode() !== Response::STATUS_CODE_200) {
-            $this->logger->warn("[Wayfinder] Failed to get placement marker from url [{$url}]. Status code [{$response->getStatusCode()}].");
+            $this->logger->warn(
+                '[Wayfinder] Failed to get placement marker'
+                . ' from url [' . $url . '].'
+                . ' Status code [' . $response->getStatusCode() . '].'
+            );
             return '';
         }
 
         $decoded = json_decode($response->getContent(), true);
         if (empty($decoded['link'])) {
-            $this
-                ->logger
-                ->warn("[Wayfinder] Failed to decode response from url [{$url}]. Response [{$response->getContent()}]");
+            $this->logger->warn(
+                '[Wayfinder] Failed to decode response'
+                . ' from url [' . $url . '].'
+                . ' Response [' . $response->getContent() . ']'
+            );
             return '';
         }
 
