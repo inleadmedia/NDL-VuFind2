@@ -38,8 +38,8 @@ class WayfinderService extends \Laminas\View\Helper\AbstractHelper
      * Constructor.
      *
      * @param \Laminas\Config\Config $config Configuration
-     * @param \VuFindHttp\HttpServiceInterface HTTP service
-     * @param \Laminas\Log\LoggerInterface Logger service
+     * @param \VuFindHttp\HttpServiceInterface $httpService HTTP service
+     * @param \Laminas\Log\LoggerInterface $logger Logger service
      */
     public function __construct($config, HttpServiceInterface $httpService, LoggerInterface $logger)
     {
@@ -51,11 +51,9 @@ class WayfinderService extends \Laminas\View\Helper\AbstractHelper
     /**
      * Gets wayfinder map link.
      *
-     * @param string $branch
-     * @param string $department
+     * @param string $source
      * @param string $location
-     * @param string $author
-     * @param string $dk5
+     * @param string $callnumber
      *
      * @return string
      */
@@ -63,6 +61,7 @@ class WayfinderService extends \Laminas\View\Helper\AbstractHelper
         [$department, $location] = explode('-', $location);
 
         $wayfinderDto = (new WayfinderMarker())
+            // TODO: The source/branch should be a live one.
 //            ->setBranch($source)
             ->setBranch('Vanamo-kirjastot')
             ->setDepartment($department)
@@ -80,11 +79,7 @@ class WayfinderService extends \Laminas\View\Helper\AbstractHelper
     /**
      * Fetches map link from wayfinder based on holding information.
      *
-     * @param string $branch
-     * @param string $department
-     * @param string $location
-     * @param string $author
-     * @param string $dk5
+     * @param array $args Location arguments.
      *
      * @return string
      */
@@ -93,6 +88,11 @@ class WayfinderService extends \Laminas\View\Helper\AbstractHelper
             return trim($v);
         }, $args);
         $params = array_filter($args);
+
+        if (empty($this->config) || parse_url($this->config['General']['url'] ?? '') === false) {
+            $this->logger->warn('[Wayfinder] Failed to parse or empty service url.');
+            return '';
+        }
 
         $url = $this->config['General']['url'] . '/includes';
         $response = $this->httpService->get($url, $params);
