@@ -2,9 +2,13 @@
 /**
  * Wayfinder service integration.
  *
- * @author  Inlead <support@inlead.dk>
- * @license http://opensource.org/licenses/gpl-2.0.php GNU General Public License
- * @link    https://inlead.dk
+ * PHP version 7
+ *
+ * @category Wayfinder
+ * @package  Wayfinder
+ * @author   Inlead <support@inlead.dk>
+ * @license  http://opensource.org/licenses/gpl-2.0.php GNU General Public License
+ * @link     https://inlead.dk
  */
 
 namespace Finna\Wayfinder;
@@ -49,9 +53,9 @@ class WayfinderService extends \Laminas\View\Helper\AbstractHelper
     /**
      * Constructor.
      *
-     * @param \Laminas\Config\Config $config Configuration
-     * @param \VuFindHttp\HttpServiceInterface $httpService HTTP service
-     * @param \Laminas\Log\LoggerInterface $logger Logger service
+     * @param \Laminas\Config\Config $config                Configuration.
+     * @param \VuFindHttp\HttpServiceInterface $httpService HTTP service.
+     * @param \Laminas\Log\LoggerInterface $logger          Logger service.
      */
     public function __construct(
         $config,
@@ -66,8 +70,8 @@ class WayfinderService extends \Laminas\View\Helper\AbstractHelper
     /**
      * Gets wayfinder map link.
      *
-     * @param string $source Source value.
-     * @param string $location Location value.
+     * @param string $source     Source value.
+     * @param string $location   Location value.
      * @param string $callnumber Callnumber value.
      *
      * @return string
@@ -109,7 +113,7 @@ class WayfinderService extends \Laminas\View\Helper\AbstractHelper
         );
         $params = array_filter($args);
 
-        if (!$this->isValidConfig()) {
+        if (!$this->_isValidConfig()) {
             $this->logger->warn('[Wayfinder] Failed to parse or empty service url.');
             return '';
         }
@@ -150,7 +154,8 @@ class WayfinderService extends \Laminas\View\Helper\AbstractHelper
      *
      * @return bool
      */
-    private function isValidConfig(): bool {
+    private function _isValidConfig(): bool
+    {
         if (empty($this->config)) {
             return false;
         }
