@@ -339,11 +339,7 @@
           <a class="expandedCheckRequest inlineblock placehold btn btn-primary hidden-print" data-lightbox href="<?=$this->escapeHtmlAttr($this->recordLinker()->getRequestUrl($holdLinksLocation[$holding['location']]))?>" data-lightbox-title="<?=$this->escapeHtmlAttr($this->translate('request_place_text') . $dialogTitle); ?>"><?=$this->transEsc('request_place_text')?></a>
         <?php endif; ?>
       </div>
-      <div class="wayfinder-link">
-          <?php foreach ($callnumbers as $data): ?>
-              <?=$this->wayfinder()->getMarker($recordSource, $data['location'], $data['callNo'])?>
-          <?php endforeach; ?>
-      </div>
+      <div class="wayfinder-placeholder">*</div>
     </div>
     <div class="clearfix"></div>
     <?php if (isset($holding['items'][0]['detailsGroupKey'])): ?>

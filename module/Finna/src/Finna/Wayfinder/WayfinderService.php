@@ -69,20 +69,21 @@ class WayfinderService extends \Laminas\View\Helper\AbstractHelper
     /**
      * Gets wayfinder map link.
      *
-     * @param string $source     Source value.
+     * @param string $branch     Branch value.
+     * @param string $department Department value.
      * @param string $location   Location value.
      * @param string $callnumber Callnumber value.
      *
      * @return string
      */
-    public function getMarker($source, $location, $callnumber): string
-    {
-        [$department, $location] = explode('-', $location);
-
+    public function getMarker(
+        string $branch,
+        string $department,
+        string $location,
+        string $callnumber
+    ): string {
         $wayfinderDto = (new WayfinderMarker())
-            // TODO: The source/branch should be a live one.
-            // ->setBranch($source)
-            ->setBranch('Vanamo-kirjastot')
+            ->setBranch($branch)
             ->setDepartment($department)
             ->setLocation($location)
             ->setDk5($callnumber);
