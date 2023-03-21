@@ -10,9 +10,9 @@
  * @license  http://opensource.org/licenses/gpl-2.0.php GNU General Public License
  * @link     https://inlead.dk
  */
-namespace Finna\Wayfinder;
+namespace Finna\View\Helper\Root\Wayfinder;
 
-use Finna\Wayfinder\DTO\WayfinderMarker;
+use Finna\View\Helper\Root\Wayfinder\DTO\WayfinderMarker;
 use Laminas\Http\Response;
 use Laminas\Log\LoggerInterface;
 use VuFindHttp\HttpServiceInterface;

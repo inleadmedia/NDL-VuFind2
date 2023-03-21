@@ -10,7 +10,7 @@
  * @license  http://opensource.org/licenses/gpl-2.0.php GNU General Public License
  * @link     https://inlead.dk
  */
-namespace Finna\Wayfinder\DTO;
+namespace Finna\View\Helper\Root\Wayfinder\DTO;
 
 /**
  * Wayfinder data object class.
