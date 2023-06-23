@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Wayfinder data object.
  *
@@ -10,6 +11,7 @@
  * @license  http://opensource.org/licenses/gpl-2.0.php GNU General Public License
  * @link     https://inlead.dk
  */
+
 namespace Finna\View\Helper\Root\Wayfinder\DTO;
 
 /**

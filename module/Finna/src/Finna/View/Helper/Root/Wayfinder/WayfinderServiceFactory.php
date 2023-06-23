@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Wayfinder service factory.
  *
@@ -10,6 +11,7 @@
  * @license  http://opensource.org/licenses/gpl-2.0.php GNU General Public License
  * @link     https://inlead.dk
  */
+
 namespace Finna\View\Helper\Root\Wayfinder;
 
 use Laminas\ServiceManager\Exception\ServiceNotCreatedException;
@@ -48,9 +50,6 @@ class WayfinderServiceFactory implements FactoryInterface
         $requestedName,
         array $options = null
     ) {
-        if (!empty($options)) {
-            throw new \Exception('Unexpected options passed to factory.');
-        }
         return new $requestedName(
             $container
                 ->get(\VuFind\Config\PluginManager::class)

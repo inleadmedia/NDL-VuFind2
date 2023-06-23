@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Wayfinder service integration.
  *
@@ -10,6 +11,7 @@
  * @license  http://opensource.org/licenses/gpl-2.0.php GNU General Public License
  * @link     https://inlead.dk
  */
+
 namespace Finna\View\Helper\Root\Wayfinder;
 
 use Finna\View\Helper\Root\Wayfinder\DTO\WayfinderMarker;
@@ -31,23 +33,30 @@ class WayfinderService extends \Laminas\View\Helper\AbstractHelper
     /**
      * Location service configuration.
      *
-     * @var \Laminas\Config\Config
+     * @var array
      */
-    protected $config = null;
+    protected array $config = [];
 
     /**
      * Http service.
      *
      * @var \VuFindHttp\HttpServiceInterface
      */
-    protected $httpService = null;
+    protected HttpServiceInterface $httpService;
 
     /**
      * Logger service.
      *
      * @var \Laminas\Log\LoggerInterface
      */
-    protected $logger = null;
+    protected LoggerInterface $logger;
+
+    /**
+     * Whether service has valid config.
+     *
+     * @var bool
+     */
+    private bool $isConfigured;
 
     /**
      * Constructor.
@@ -62,6 +71,8 @@ class WayfinderService extends \Laminas\View\Helper\AbstractHelper
         LoggerInterface $logger
     ) {
         $this->config = $config->toArray();
+        $this->isConfigured = $this->isValidConfig();
+
         $this->httpService = $httpService;
         $this->logger = $logger;
     }
@@ -100,6 +111,15 @@ class WayfinderService extends \Laminas\View\Helper\AbstractHelper
     }
 
     /**
+     * Whether service can be used, i.e. is configured.
+     *
+     * @return bool
+     */
+    public function isConfigured(): bool {
+        return $this->isConfigured;
+    }
+
+    /**
      * Fetches map link from wayfinder based on holding information.
      *
      * @param array $args Location arguments.
@@ -116,8 +136,8 @@ class WayfinderService extends \Laminas\View\Helper\AbstractHelper
         );
         $params = array_filter($args);
 
-        if (!$this->_isValidConfig()) {
-            $this->logger->warn('[Wayfinder] Failed to parse or empty service url.');
+        if (!$this->isConfigured()) {
+            $this->logger->warn('[Wayfinder] Service not configured.');
             return '';
         }
 
@@ -126,18 +146,25 @@ class WayfinderService extends \Laminas\View\Helper\AbstractHelper
 
         if ($response->getStatusCode() !== Response::STATUS_CODE_200) {
             $this->logger->warn(
-                '[Wayfinder] Failed to get placement marker'
+                '[Wayfinder] Failed to read placement marker'
                 . ' from url [' . $url . '].'
                 . ' Status code [' . $response->getStatusCode() . '].'
             );
             return '';
         }
 
-        $decoded = json_decode($response->getContent(), true);
+        try {
+            $decoded = json_decode($response->getContent(), true, 512, JSON_THROW_ON_ERROR);
+        }
+        catch (\JsonException $exception) {
+            $this->logger->err($exception->getMessage());
+            return '';
+        }
+
         if (empty($decoded['link'])) {
             $this->logger->warn(
-                '[Wayfinder] Failed to decode response'
-                . ' from url [' . $url . '].'
+                '[Wayfinder] Failed to get marker link from response'
+                . ' using [' . $url . '].'
                 . ' Response [' . $response->getContent() . ']'
             );
             return '';
@@ -151,7 +178,7 @@ class WayfinderService extends \Laminas\View\Helper\AbstractHelper
      *
      * @return bool
      */
-    private function _isValidConfig(): bool
+    private function isValidConfig(): bool
     {
         if (empty($this->config)) {
             return false;
