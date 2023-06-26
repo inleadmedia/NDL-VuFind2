@@ -66,6 +66,7 @@ class Callnumber extends \Laminas\View\Helper\AbstractHelper
     public function __construct(LocationService $locationService, WayfinderService $wayfinderService)
     {
         $this->locationService = $locationService;
+        $this->wayfinderService = $wayfinderService;
     }
 
     /**
@@ -123,6 +124,11 @@ class Callnumber extends \Laminas\View\Helper\AbstractHelper
             $section = $basePage === 'results' ? 'qrCodeResults' : 'qrCodeRecord';
             $params['qrCode'] = $config[$section];
         }
+
+        if ($this->wayfinderService->isConfigured()) {
+            $params['wayfinder'] = json_encode($fields);
+        }
+
         return $this->getView()->render('Helpers/holding-callnumber.phtml', $params);
     }
 
