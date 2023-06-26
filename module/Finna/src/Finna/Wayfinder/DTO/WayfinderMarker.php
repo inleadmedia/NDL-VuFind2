@@ -12,7 +12,7 @@
  * @link     https://inlead.dk
  */
 
-namespace Finna\View\Helper\Root\Wayfinder\DTO;
+namespace Finna\Wayfinder\DTO;
 
 /**
  * Wayfinder data object class.

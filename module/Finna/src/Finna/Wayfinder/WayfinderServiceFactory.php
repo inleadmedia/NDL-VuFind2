@@ -12,7 +12,7 @@
  * @link     https://inlead.dk
  */
 
-namespace Finna\View\Helper\Root\Wayfinder;
+namespace Finna\Wayfinder;
 
 use Laminas\ServiceManager\Exception\ServiceNotCreatedException;
 use Laminas\ServiceManager\Exception\ServiceNotFoundException;

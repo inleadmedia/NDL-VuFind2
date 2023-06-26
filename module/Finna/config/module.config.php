@@ -393,6 +393,7 @@ $config = [
             'Finna\Video\Handler\PluginManager' => 'VuFind\ServiceManager\AbstractPluginManagerFactory',
             'Finna\Video\Video' => 'Finna\Video\VideoFactory',
             'Finna\View\Resolver\AggregateResolver' => 'Finna\View\Resolver\AggregateResolverFactory',
+            'Finna\Wayfinder\WayfinderService' => 'Finna\Wayfinder\WayfinderServiceFactory',
             'NatLibFi\FinnaCodeSets\FinnaCodeSets' => 'Finna\RecordDriver\CodeSetsFactory',
 
             // Factory overrides for non-Finna classes:
@@ -420,6 +421,7 @@ $config = [
             'VuFind\Search\Solr\HierarchicalFacetHelper' => 'Finna\Search\Solr\HierarchicalFacetHelper',
 
             'ViewResolver' => 'Finna\View\Resolver\AggregateResolver',
+            'Wayfinder' => 'Finna\Wayfinder\WayfinderService',
         ],
     ],
     'view_manager' => [

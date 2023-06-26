@@ -74,7 +74,6 @@ $config = [
             'Finna\View\Helper\Root\UserAgent' => 'Finna\View\Helper\Root\UserAgentFactory',
             'Finna\View\Helper\Root\UserListEmbed' => 'Finna\View\Helper\Root\UserListEmbedFactory',
             'Finna\View\Helper\Root\UserPublicName' => 'Laminas\ServiceManager\Factory\InvokableFactory',
-            'Finna\View\Helper\Root\Wayfinder\WayfinderService' => 'Finna\View\Helper\Root\Wayfinder\WayfinderServiceFactory',
             'VuFind\View\Helper\Root\Linkify' => 'Finna\View\Helper\Root\LinkifyFactory',
         ],
         'aliases' => [
@@ -138,7 +137,6 @@ $config = [
             'userAgent' => 'Finna\View\Helper\Root\UserAgent',
             'userlistEmbed' => 'Finna\View\Helper\Root\UserListEmbed',
             'userPublicName' => 'Finna\View\Helper\Root\UserPublicName',
-            'wayfinder' => 'Finna\View\Helper\Root\Wayfinder\WayfinderService',
 
             // Overrides
             'VuFind\View\Helper\Root\Browse' => 'Finna\View\Helper\Root\Browse',

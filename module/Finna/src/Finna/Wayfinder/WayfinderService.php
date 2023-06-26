@@ -12,9 +12,9 @@
  * @link     https://inlead.dk
  */
 
-namespace Finna\View\Helper\Root\Wayfinder;
+namespace Finna\Wayfinder;
 
-use Finna\View\Helper\Root\Wayfinder\DTO\WayfinderMarker;
+use Finna\Wayfinder\DTO\WayfinderMarker;
 use Laminas\Http\Response;
 use Laminas\Log\LoggerInterface;
 use VuFindHttp\HttpServiceInterface;
@@ -28,7 +28,7 @@ use VuFindHttp\HttpServiceInterface;
  * @license  http://opensource.org/licenses/gpl-2.0.php GNU General Public License
  * @link     https://inlead.dk
  */
-class WayfinderService extends \Laminas\View\Helper\AbstractHelper
+class WayfinderService
 {
     /**
      * Location service configuration.
@@ -115,7 +115,8 @@ class WayfinderService extends \Laminas\View\Helper\AbstractHelper
      *
      * @return bool
      */
-    public function isConfigured(): bool {
+    public function isConfigured(): bool
+    {
         return $this->isConfigured;
     }
 
@@ -155,8 +156,7 @@ class WayfinderService extends \Laminas\View\Helper\AbstractHelper
 
         try {
             $decoded = json_decode($response->getContent(), true, 512, JSON_THROW_ON_ERROR);
-        }
-        catch (\JsonException $exception) {
+        } catch (\JsonException $exception) {
             $this->logger->err($exception->getMessage());
             return '';
         }

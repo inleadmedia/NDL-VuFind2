@@ -30,6 +30,7 @@
 namespace Finna\View\Helper\Root;
 
 use Finna\LocationService\LocationService;
+use Finna\Wayfinder\WayfinderService;
 
 /**
  * Holdings callnumber view helper
@@ -50,12 +51,19 @@ class Callnumber extends \Laminas\View\Helper\AbstractHelper
     protected $locationService = null;
 
     /**
+     * Wayfinder service.
+     *
+     * @var WayfinderService
+     */
+    protected $wayfinderService;
+
+    /**
      * Constructor
      *
      * @param LocationService $locationService Location Service
      * of Finland Location Service
      */
-    public function __construct(LocationService $locationService)
+    public function __construct(LocationService $locationService, WayfinderService $wayfinderService)
     {
         $this->locationService = $locationService;
     }
