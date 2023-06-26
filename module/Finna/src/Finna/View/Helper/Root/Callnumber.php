@@ -60,8 +60,9 @@ class Callnumber extends \Laminas\View\Helper\AbstractHelper
     /**
      * Constructor
      *
-     * @param LocationService $locationService Location Service
+     * @param LocationService  $locationService  Location Service
      * of Finland Location Service
+     * @param WayfinderService $wayfinderService Wayfinder service instance.
      */
     public function __construct(LocationService $locationService, WayfinderService $wayfinderService)
     {

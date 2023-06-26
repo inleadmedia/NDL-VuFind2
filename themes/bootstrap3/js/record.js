@@ -34,9 +34,7 @@ function checkRequestIsValid(element, requestType, icon = 'place-hold') {
     });
 }
 
-function wayfinderPlacementLinkLookup(element, icon = 'place-hold') {
-  var recordPlacement = element.dataset.location;
-
+function wayfinderPlacementLinkLookup(element, icon = 'fa fa-map-marker') {
   var url = VuFind.path + '/AJAX/JSON?' + $.param({
     method: 'wayfinderPlacementLinkLookup',
   });
@@ -45,20 +43,29 @@ function wayfinderPlacementLinkLookup(element, icon = 'place-hold') {
     dataType: 'json',
     cache: false,
     url: url,
-    data: JSON.stringify(recordPlacement)
+    data: {
+      placement: element.dataset.location || ''
+    }
   })
-      .done(function checkValidDone(response) {
-        if (response.data.status) {
-          $(element).removeClass('disabled')
-              .attr('title', response.data.msg)
-              .html(VuFind.icon(icon) + '<span class="icon-link__label">' + VuFind.updateCspNonce(response.data.msg) + "</span>");
-        } else {
-          $(element).remove();
-        }
-      })
-      .fail(function checkValidFail(/*response*/) {
+    .done(function checkValidDone(response) {
+      if (response.data.status) {
+        let link_element = $(document.createElement('a'))
+          .addClass('icon-link__label')
+          .attr('target', '_blank')
+          .attr('href', response.data.marker_url)
+          .append(
+            $(document.createElement('i'))
+              .attr('aria-hidden', 'true')
+              .addClass(icon)
+          );
+        $(element).html(link_element);
+      } else {
         $(element).remove();
-      });
+      }
+    })
+    .fail(function checkValidFail(/*response*/) {
+      $(element).remove();
+    });
 }
 
 function setUpCheckRequest() {

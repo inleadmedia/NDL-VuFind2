@@ -1,2 +1,3 @@
 [General]
 url = "http://localhost"
+plugin = "sample"

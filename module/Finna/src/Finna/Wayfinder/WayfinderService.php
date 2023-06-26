@@ -14,7 +14,7 @@
 
 namespace Finna\Wayfinder;
 
-use Finna\Wayfinder\DTO\WayfinderMarker;
+use Finna\Wayfinder\Adapter\SampleAdapter;
 use Laminas\Http\Response;
 use Laminas\Log\LoggerInterface;
 use VuFindHttp\HttpServiceInterface;
@@ -80,33 +80,16 @@ class WayfinderService
     /**
      * Gets wayfinder map link.
      *
-     * @param string $branch     Branch value.
-     * @param string $department Department value.
-     * @param string $location   Location value.
-     * @param string $callnumber Callnumber value.
+     * @param array $payload Placement information array.
      *
      * @return string
      */
     public function getMarker(
-        string $branch,
-        string $department,
-        string $location,
-        string $callnumber
+        array $payload
     ): string {
-        $wayfinderDto = (new WayfinderMarker())
-            ->setBranch($branch)
-            ->setDepartment($department)
-            ->setLocation($location)
-            ->setDk5($callnumber);
-
-        $markerUrl = $this->fetchMarker($wayfinderDto->toArray());
-
-        return $this->getView()->render(
-            'Wayfinder/marker.phtml',
-            [
-                'marker_url' => $markerUrl,
-                'marker_label' => 'Wayfinder',
-            ]
+        // @TODO: Dynamically decide which plugin to use from wayfinder config.
+        return $this->fetchMarker(
+            (new SampleAdapter())->getLocation($payload)->toArray()
         );
     }
 
@@ -127,15 +110,14 @@ class WayfinderService
      *
      * @return string
      */
-    protected function fetchMarker(array $args): string
+    private function fetchMarker(array $args): string
     {
         $args = array_map(
             function ($v) {
                 return trim($v);
             },
-            $args
+            array_filter($args)
         );
-        $params = array_filter($args);
 
         if (!$this->isConfigured()) {
             $this->logger->warn('[Wayfinder] Service not configured.');
@@ -143,7 +125,7 @@ class WayfinderService
         }
 
         $url = $this->config['General']['url'] . '/includes';
-        $response = $this->httpService->get($url, $params);
+        $response = $this->httpService->get($url, $args);
 
         if ($response->getStatusCode() !== Response::STATUS_CODE_200) {
             $this->logger->warn(

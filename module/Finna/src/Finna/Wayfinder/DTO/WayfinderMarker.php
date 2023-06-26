@@ -3,7 +3,7 @@
 /**
  * Wayfinder data object.
  *
- * PHP version 7
+ * PHP version 8
  *
  * @category Wayfinder
  * @package  Wayfinder
