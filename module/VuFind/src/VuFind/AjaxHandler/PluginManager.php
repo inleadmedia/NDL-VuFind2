@@ -79,6 +79,7 @@ class PluginManager extends \VuFind\ServiceManager\AbstractPluginManager
         'relaisOrder' => RelaisOrder::class,
         'systemStatus' => SystemStatus::class,
         'tagRecord' => TagRecord::class,
+        'wayfinderPlacementLinkLookup' => WayfinderPlacementLinkLookup::class,
     ];
 
     /**
@@ -122,6 +123,8 @@ class PluginManager extends \VuFind\ServiceManager\AbstractPluginManager
         RelaisOrder::class => AbstractRelaisActionFactory::class,
         SystemStatus::class => SystemStatusFactory::class,
         TagRecord::class => TagRecordFactory::class,
+        WayfinderPlacementLinkLookup::class =>
+            WayfinderPlacementLinkLookupFactory::class,
     ];
 
     /**

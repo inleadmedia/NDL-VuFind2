@@ -34,6 +34,33 @@ function checkRequestIsValid(element, requestType, icon = 'place-hold') {
     });
 }
 
+function wayfinderPlacementLinkLookup(element, icon = 'place-hold') {
+  var recordPlacement = element.dataset.location;
+
+  var url = VuFind.path + '/AJAX/JSON?' + $.param({
+    method: 'wayfinderPlacementLinkLookup',
+  });
+  $.ajax({
+    method: 'POST',
+    dataType: 'json',
+    cache: false,
+    url: url,
+    data: JSON.stringify(recordPlacement)
+  })
+      .done(function checkValidDone(response) {
+        if (response.data.status) {
+          $(element).removeClass('disabled')
+              .attr('title', response.data.msg)
+              .html(VuFind.icon(icon) + '<span class="icon-link__label">' + VuFind.updateCspNonce(response.data.msg) + "</span>");
+        } else {
+          $(element).remove();
+        }
+      })
+      .fail(function checkValidFail(/*response*/) {
+        $(element).remove();
+      });
+}
+
 function setUpCheckRequest() {
   $('.checkRequest').each(function checkRequest() {
     checkRequestIsValid(this, 'Hold', 'place-hold');
@@ -43,6 +70,9 @@ function setUpCheckRequest() {
   });
   $('.checkILLRequest').each(function checkILLRequest() {
     checkRequestIsValid(this, 'ILLRequest', 'place-ill-request');
+  });
+  $('.wayfinder-placeholder').each(function checkWayfinderLinkLookupRequest() {
+    wayfinderPlacementLinkLookup(this);
   });
 }
 
