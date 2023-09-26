@@ -34,7 +34,7 @@ function checkRequestIsValid(element, requestType, icon = 'place-hold') {
     });
 }
 
-function wayfinderPlacementLinkLookup(element, icon = 'fa fa-map-marker') {
+function wayfinderPlacementLinkLookup(element) {
   var url = VuFind.path + '/AJAX/JSON?' + $.param({
     method: 'wayfinderPlacementLinkLookup',
   });
@@ -49,16 +49,13 @@ function wayfinderPlacementLinkLookup(element, icon = 'fa fa-map-marker') {
   })
     .done(function checkValidDone(response) {
       if (response.data.status) {
-        let link_element = $(document.createElement('a'))
-          .addClass('icon-link__label')
-          .attr('target', '_blank')
-          .attr('href', response.data.marker_url)
-          .append(
-            $(document.createElement('i'))
-              .attr('aria-hidden', 'true')
-              .addClass(icon)
-          );
-        $(element).html(link_element);
+        let wayfinder_link = document.createElement('a');
+        wayfinder_link.className = 'icon-link__label';
+        wayfinder_link.setAttribute('target', '_blank');
+        wayfinder_link.setAttribute('href', response.data.marker_url);
+        wayfinder_link.innerHTML = VuFind.icon('map-marker');
+
+        $(element).append(wayfinder_link);
       } else {
         $(element).remove();
       }
