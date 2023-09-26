@@ -127,7 +127,7 @@ class Callnumber extends \Laminas\View\Helper\AbstractHelper
         }
 
         if ($this->wayfinderService->isConfigured()) {
-            $params['wayfinder'] = json_encode($fields);
+            $params['wayfinder'] = $fields;
         }
 
         return $this->getView()->render('Helpers/holding-callnumber.phtml', $params);

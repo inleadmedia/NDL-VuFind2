@@ -68,7 +68,8 @@ class WayfinderServiceFactory implements FactoryInterface
         return new $requestedName(
             $container
                 ->get(\VuFind\Config\PluginManager::class)
-                ->get('WayfinderService'),
+                ->get('WayfinderService')
+                ->toArray(),
             $container->get(\VuFindHttp\HttpService::class),
             $container->get(\VuFind\Log\Logger::class)
         );

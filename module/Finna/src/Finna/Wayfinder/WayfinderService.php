@@ -50,19 +50,19 @@ class WayfinderService
      *
      * @var array
      */
-    protected array $config = [];
+    protected array $config;
 
     /**
      * Http service.
      *
-     * @var \VuFindHttp\HttpServiceInterface
+     * @var HttpServiceInterface
      */
     protected HttpServiceInterface $httpService;
 
     /**
      * Logger service.
      *
-     * @var \Laminas\Log\LoggerInterface
+     * @var LoggerInterface
      */
     protected LoggerInterface $logger;
 
@@ -71,21 +71,21 @@ class WayfinderService
      *
      * @var bool
      */
-    private bool $isConfigured;
+    protected bool $isConfigured;
 
     /**
      * Constructor.
      *
-     * @param \Laminas\Config\Config           $config      Configuration.
-     * @param \VuFindHttp\HttpServiceInterface $httpService HTTP service.
-     * @param \Laminas\Log\LoggerInterface     $logger      Logger service.
+     * @param array                            $config      Configuration.
+     * @param HttpServiceInterface $httpService HTTP service.
+     * @param LoggerInterface $logger      Logger service.
      */
     public function __construct(
-        $config,
+        array $config,
         HttpServiceInterface $httpService,
         LoggerInterface $logger
     ) {
-        $this->config = $config->toArray();
+        $this->config = $config;
         $this->isConfigured = $this->isValidConfig();
 
         $this->httpService = $httpService;
@@ -99,9 +99,7 @@ class WayfinderService
      *
      * @return string
      */
-    public function getMarker(
-        array $payload
-    ): string {
+    public function getMarker(array $payload): string {
         // @TODO: Dynamically decide which plugin to use from wayfinder config.
         return $this->fetchMarker(
             (new SampleAdapter())->getLocation($payload)->toArray()
@@ -125,7 +123,7 @@ class WayfinderService
      *
      * @return string
      */
-    private function fetchMarker(array $args): string
+    protected function fetchMarker(array $args): string
     {
         $args = array_map(
             function ($v) {
@@ -175,7 +173,7 @@ class WayfinderService
      *
      * @return bool
      */
-    private function isValidConfig(): bool
+    protected function isValidConfig(): bool
     {
         if (empty($this->config)) {
             return false;
