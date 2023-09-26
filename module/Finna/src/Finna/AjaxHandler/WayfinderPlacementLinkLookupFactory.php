@@ -27,11 +27,12 @@
  * @link     https://inlead.dk
  */
 
-namespace VuFind\AjaxHandler;
+namespace Finna\AjaxHandler;
 
 use Finna\Wayfinder\WayfinderService;
 use Laminas\ServiceManager\Exception\ServiceNotCreatedException;
 use Laminas\ServiceManager\Exception\ServiceNotFoundException;
+use Laminas\ServiceManager\Factory\FactoryInterface;
 use Psr\Container\ContainerExceptionInterface as ContainerException;
 use Psr\Container\ContainerInterface;
 
@@ -46,7 +47,7 @@ use Psr\Container\ContainerInterface;
  * @license  http://opensource.org/licenses/gpl-2.0.php GNU General Public License
  * @link     https://inlead.dk
  */
-class WayfinderPlacementLinkLookupFactory implements \Laminas\ServiceManager\Factory\FactoryInterface
+class WayfinderPlacementLinkLookupFactory implements FactoryInterface
 {
     /**
      * Create an object

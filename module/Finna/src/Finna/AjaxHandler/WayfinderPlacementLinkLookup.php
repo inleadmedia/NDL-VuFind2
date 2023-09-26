@@ -27,10 +27,11 @@
  * @link     https://inlead.dk
  */
 
-namespace VuFind\AjaxHandler;
+namespace Finna\AjaxHandler;
 
 use Finna\Wayfinder\WayfinderService;
 use Laminas\Mvc\Controller\Plugin\Params;
+use VuFind\AjaxHandler\AbstractBase;
 
 /**
  * AJAX handler to lookup Wayfinder placement link.
