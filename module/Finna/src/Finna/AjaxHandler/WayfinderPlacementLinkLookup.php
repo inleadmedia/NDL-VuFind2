@@ -73,7 +73,12 @@ class WayfinderPlacementLinkLookup extends AbstractBase
     public function handleRequest(Params $params)
     {
         $markerUrl = $this->wayfinderService->getMarker(
-            json_decode($params->fromPost('placement', '[]'), true)
+            json_decode(
+                $params->fromPost('placement', '[]'),
+                true,
+                512,
+                JSON_THROW_ON_ERROR
+            )
         );
 
         if (empty($markerUrl)) {

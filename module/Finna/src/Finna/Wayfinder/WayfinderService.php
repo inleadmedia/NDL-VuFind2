@@ -29,9 +29,11 @@
 
 namespace Finna\Wayfinder;
 
-use Finna\Wayfinder\Adapter\SampleAdapter;
+use Finna\Wayfinder\Adapter\LocationAdapterInterface;
+use Finna\Wayfinder\DTO\WayfinderPlacement;
 use Laminas\Http\Response;
 use Laminas\Log\LoggerInterface;
+use Psr\Container\ContainerInterface;
 use VuFindHttp\HttpServiceInterface;
 
 /**
@@ -46,27 +48,6 @@ use VuFindHttp\HttpServiceInterface;
 class WayfinderService
 {
     /**
-     * Location service configuration.
-     *
-     * @var array
-     */
-    protected array $config;
-
-    /**
-     * Http service.
-     *
-     * @var HttpServiceInterface
-     */
-    protected HttpServiceInterface $httpService;
-
-    /**
-     * Logger service.
-     *
-     * @var LoggerInterface
-     */
-    protected LoggerInterface $logger;
-
-    /**
      * Whether service has valid config.
      *
      * @var bool
@@ -76,20 +57,18 @@ class WayfinderService
     /**
      * Constructor.
      *
-     * @param array                            $config      Configuration.
+     * @param ContainerInterface   $container   Service container.
+     * @param array                $config      Configuration.
      * @param HttpServiceInterface $httpService HTTP service.
-     * @param LoggerInterface $logger      Logger service.
+     * @param LoggerInterface      $logger      Logger service.
      */
     public function __construct(
-        array $config,
-        HttpServiceInterface $httpService,
-        LoggerInterface $logger
+        protected ContainerInterface $container,
+        protected array $config,
+        protected HttpServiceInterface $httpService,
+        protected LoggerInterface $logger
     ) {
-        $this->config = $config;
         $this->isConfigured = $this->isValidConfig();
-
-        $this->httpService = $httpService;
-        $this->logger = $logger;
     }
 
     /**
@@ -99,11 +78,14 @@ class WayfinderService
      *
      * @return string
      */
-    public function getMarker(array $payload): string {
-        // @TODO: Dynamically decide which plugin to use from wayfinder config.
-        return $this->fetchMarker(
-            (new SampleAdapter())->getLocation($payload)->toArray()
+    public function getMarker(array $payload): string
+    {
+        /** @var LocationAdapterInterface $adapter */
+        $adapter = $this->container->get(
+            $this->config['General']['adapter']
         );
+
+        return $this->fetchMarker($adapter->getLocation($payload));
     }
 
     /**
@@ -119,17 +101,17 @@ class WayfinderService
     /**
      * Fetches map link from wayfinder based on holding information.
      *
-     * @param array $args Location arguments.
+     * @param WayfinderPlacement $placement Placement DTO.
      *
      * @return string
      */
-    protected function fetchMarker(array $args): string
+    protected function fetchMarker(WayfinderPlacement $placement): string
     {
         $args = array_map(
-            function ($v) {
+            static function ($v) {
                 return trim($v);
             },
-            array_filter($args)
+            array_filter($placement->toArray())
         );
 
         if (!$this->isConfigured()) {
@@ -137,11 +119,11 @@ class WayfinderService
             return '';
         }
 
-        $url = $this->config['General']['url'] . '/includes';
+        $url = rtrim($this->config['General']['url'], '/') . '/includes';
         $response = $this->httpService->get($url, $args);
 
         if ($response->getStatusCode() !== Response::STATUS_CODE_200) {
-            $this->logger->warn(
+            $this->logger->err(
                 '[Wayfinder] Failed to read placement marker'
                 . ' from url [' . $url . '].'
                 . ' Status code [' . $response->getStatusCode() . '].'
@@ -157,7 +139,7 @@ class WayfinderService
         }
 
         if (empty($decoded['link'])) {
-            $this->logger->warn(
+            $this->logger->err(
                 '[Wayfinder] Failed to get marker link from response'
                 . ' using [' . $url . '].'
                 . ' Response [' . $response->getContent() . ']'

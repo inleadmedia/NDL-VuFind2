@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Placement source data adapter.
+ * Wayfinder adapter factory.
  *
  * PHP version 8
  *
@@ -29,12 +29,14 @@
 
 namespace Finna\Wayfinder\Adapter;
 
-use Finna\Wayfinder\DTO\WayfinderPlacement;
+use Laminas\ServiceManager\Exception\ServiceNotCreatedException;
+use Laminas\ServiceManager\Exception\ServiceNotFoundException;
+use Laminas\ServiceManager\Factory\FactoryInterface;
+use Psr\Container\ContainerExceptionInterface as ContainerException;
+use Psr\Container\ContainerInterface;
 
 /**
- * Placement source data adapter.
- *
- * PHP version 8
+ * Wayfinder adapter factory.
  *
  * @category Wayfinder
  * @package  Wayfinder
@@ -42,14 +44,27 @@ use Finna\Wayfinder\DTO\WayfinderPlacement;
  * @license  http://opensource.org/licenses/gpl-2.0.php GNU General Public License
  * @link     https://inlead.dk
  */
-interface LocationAdapterInterface
+class WayfinderAdapterServiceFactory implements FactoryInterface
 {
     /**
-     * Gets the placement location DTO.
+     * Create an object
      *
-     * @param array $data Placement payload.
+     * @param ContainerInterface $container     Service manager
+     * @param string             $requestedName Service being created
+     * @param null|array         $options       Extra options (optional)
      *
-     * @return WayfinderPlacement Marker DTO.
+     * @return object
+     *
+     * @throws ServiceNotFoundException if unable to resolve the service.
+     * @throws ServiceNotCreatedException if an exception is raised when
+     * creating a service.
+     * @throws ContainerException if any other error occurs
      */
-    public function getLocation(array $data): WayfinderPlacement;
+    public function __invoke(
+        ContainerInterface $container,
+        $requestedName,
+        array $options = null
+    ) {
+        return new $requestedName();
+    }
 }

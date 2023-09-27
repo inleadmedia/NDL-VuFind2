@@ -38,7 +38,7 @@ namespace Finna\Wayfinder\DTO;
  * @license  http://opensource.org/licenses/gpl-2.0.php GNU General Public License
  * @link     https://inlead.dk
  */
-class WayfinderMarker
+class WayfinderPlacement
 {
     /**
      * Branch placement.
@@ -111,9 +111,9 @@ class WayfinderMarker
      *
      * @param string $branch Branch placement.
      *
-     * @return WayfinderMarker
+     * @return WayfinderPlacement
      */
-    public function setBranch(string $branch): WayfinderMarker
+    public function setBranch(string $branch): WayfinderPlacement
     {
         $this->branch = $branch;
         return $this;
@@ -134,9 +134,9 @@ class WayfinderMarker
      *
      * @param string|null $department Department placement.
      *
-     * @return WayfinderMarker
+     * @return WayfinderPlacement
      */
-    public function setDepartment(?string $department): WayfinderMarker
+    public function setDepartment(?string $department): WayfinderPlacement
     {
         $this->department = $department;
         return $this;
@@ -157,9 +157,9 @@ class WayfinderMarker
      *
      * @param string|null $location Location placement.
      *
-     * @return WayfinderMarker
+     * @return WayfinderPlacement
      */
-    public function setLocation(?string $location): WayfinderMarker
+    public function setLocation(?string $location): WayfinderPlacement
     {
         $this->location = $location;
         return $this;
@@ -180,9 +180,9 @@ class WayfinderMarker
      *
      * @param string|null $subLocation Sub-location placement.
      *
-     * @return WayfinderMarker
+     * @return WayfinderPlacement
      */
-    public function setSubLocation(?string $subLocation): WayfinderMarker
+    public function setSubLocation(?string $subLocation): WayfinderPlacement
     {
         $this->subLocation = $subLocation;
         return $this;
@@ -203,9 +203,9 @@ class WayfinderMarker
      *
      * @param string|null $shelfMark Shelf-mark placement.
      *
-     * @return WayfinderMarker
+     * @return WayfinderPlacement
      */
-    public function setShelfMark(?string $shelfMark): WayfinderMarker
+    public function setShelfMark(?string $shelfMark): WayfinderPlacement
     {
         $this->shelfMark = $shelfMark;
         return $this;
@@ -226,9 +226,9 @@ class WayfinderMarker
      *
      * @param string|null $dk5 DK5 placement.
      *
-     * @return WayfinderMarker
+     * @return WayfinderPlacement
      */
-    public function setDk5(?string $dk5): WayfinderMarker
+    public function setDk5(?string $dk5): WayfinderPlacement
     {
         $this->dk5 = $dk5;
         return $this;
@@ -249,9 +249,9 @@ class WayfinderMarker
      *
      * @param string|null $author Author placement.
      *
-     * @return WayfinderMarker
+     * @return WayfinderPlacement
      */
-    public function setAuthor(?string $author): WayfinderMarker
+    public function setAuthor(?string $author): WayfinderPlacement
     {
         $this->author = $author;
         return $this;
@@ -272,9 +272,9 @@ class WayfinderMarker
      *
      * @param string|null $dewey Dewey value.
      *
-     * @return WayfinderMarker
+     * @return WayfinderPlacement
      */
-    public function setDewey(?string $dewey): WayfinderMarker
+    public function setDewey(?string $dewey): WayfinderPlacement
     {
         $this->dewey = $dewey;
         return $this;

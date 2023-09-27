@@ -1,3 +1,4 @@
 [General]
+; E.g.: "https://wf-hambib.stg.easyscreen.io"
 url = "http://localhost"
-plugin = "sample"
+adapter = "WayfinderSampleAdapter"

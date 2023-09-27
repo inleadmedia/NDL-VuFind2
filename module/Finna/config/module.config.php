@@ -394,6 +394,7 @@ $config = [
             'Finna\Video\Video' => 'Finna\Video\VideoFactory',
             'Finna\View\Resolver\AggregateResolver' => 'Finna\View\Resolver\AggregateResolverFactory',
             'Finna\Wayfinder\WayfinderService' => 'Finna\Wayfinder\WayfinderServiceFactory',
+            'Finna\Wayfinder\Adapter\SampleAdapter' => 'Finna\Wayfinder\Adapter\WayfinderAdapterServiceFactory',
             'NatLibFi\FinnaCodeSets\FinnaCodeSets' => 'Finna\RecordDriver\CodeSetsFactory',
 
             // Factory overrides for non-Finna classes:
@@ -422,6 +423,7 @@ $config = [
 
             'ViewResolver' => 'Finna\View\Resolver\AggregateResolver',
             'Wayfinder' => 'Finna\Wayfinder\WayfinderService',
+            'WayfinderSampleAdapter' => 'Finna\Wayfinder\Adapter\SampleAdapter',
         ],
     ],
     'view_manager' => [

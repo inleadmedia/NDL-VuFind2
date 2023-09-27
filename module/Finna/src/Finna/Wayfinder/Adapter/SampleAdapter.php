@@ -14,7 +14,7 @@
 
 namespace Finna\Wayfinder\Adapter;
 
-use Finna\Wayfinder\DTO\WayfinderMarker;
+use Finna\Wayfinder\DTO\WayfinderPlacement;
 
 /**
  * Sample placement data adapter implementation.
@@ -49,11 +49,13 @@ class SampleAdapter implements LocationAdapterInterface
      *
      * @param array $data Placement payload.
      *
-     * @return WayfinderMarker Marker DTO.
+     * @return WayfinderPlacement Marker DTO.
      */
-    public function getLocation(array $data): WayfinderMarker
+    public function getLocation(array $data): WayfinderPlacement
     {
-        return (new WayfinderMarker())
+        // Read what we have as placement data in $data
+        // and map contents of $data array to what Wayfinder expects.
+        return (new WayfinderPlacement())
             ->setBranch('sample')
             ->setDepartment($data['branch'] ?? '')
             ->setLocation($data['department'] ?? '')
