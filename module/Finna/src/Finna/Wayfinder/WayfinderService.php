@@ -33,6 +33,7 @@ use Finna\Wayfinder\DTO\WayfinderPlacement;
 use Laminas\Http\Response;
 use Laminas\Log\LoggerInterface;
 use Psr\Container\ContainerInterface;
+use VuFind\Log\LoggerAwareTrait;
 use VuFindHttp\HttpServiceInterface;
 
 /**
@@ -46,6 +47,8 @@ use VuFindHttp\HttpServiceInterface;
  */
 class WayfinderService
 {
+    use LoggerAwareTrait;
+
     /**
      * Whether service has valid config.
      *
@@ -65,9 +68,10 @@ class WayfinderService
         protected ContainerInterface $container,
         protected array $config,
         protected HttpServiceInterface $httpService,
-        protected LoggerInterface $logger
+        LoggerInterface $logger
     ) {
         $this->isConfigured = $this->isValidConfig();
+        $this->logger = $logger;
     }
 
     /**
@@ -113,7 +117,7 @@ class WayfinderService
         );
 
         if (!$this->isConfigured()) {
-            $this->logger->warn('[Wayfinder] Service not configured.');
+            $this->logWarning('Service not configured.');
             return '';
         }
 
@@ -121,8 +125,8 @@ class WayfinderService
         $response = $this->httpService->get($url, $args);
 
         if ($response->getStatusCode() !== Response::STATUS_CODE_200) {
-            $this->logger->err(
-                '[Wayfinder] Failed to read placement marker'
+            $this->logError(
+                'Failed to read placement marker'
                 . ' from url [' . $url . '].'
                 . ' Status code [' . $response->getStatusCode() . '].'
             );
@@ -132,13 +136,13 @@ class WayfinderService
         try {
             $decoded = json_decode($response->getContent(), true, 512, JSON_THROW_ON_ERROR);
         } catch (\JsonException $exception) {
-            $this->logger->err($exception->getMessage());
+            $this->logError((string) $exception);
             return '';
         }
 
         if (empty($decoded['link'])) {
-            $this->logger->err(
-                '[Wayfinder] Failed to get marker link from response'
+            $this->logError(
+                'Failed to get marker link from response'
                 . ' using [' . $url . '].'
                 . ' Response [' . $response->getContent() . ']'
             );
