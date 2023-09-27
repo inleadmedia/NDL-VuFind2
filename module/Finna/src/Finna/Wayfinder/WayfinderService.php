@@ -29,7 +29,6 @@
 
 namespace Finna\Wayfinder;
 
-use Finna\Wayfinder\Adapter\LocationAdapterInterface;
 use Finna\Wayfinder\DTO\WayfinderPlacement;
 use Laminas\Http\Response;
 use Laminas\Log\LoggerInterface;
@@ -80,7 +79,6 @@ class WayfinderService
      */
     public function getMarker(array $payload): string
     {
-        /** @var LocationAdapterInterface $adapter */
         $adapter = $this->container->get(
             $this->config['General']['adapter']
         );
