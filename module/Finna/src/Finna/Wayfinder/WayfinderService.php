@@ -136,7 +136,7 @@ class WayfinderService
         try {
             $decoded = json_decode($response->getContent(), true, 512, JSON_THROW_ON_ERROR);
         } catch (\JsonException $exception) {
-            $this->logError((string) $exception);
+            $this->logError((string)$exception);
             return '';
         }
 
