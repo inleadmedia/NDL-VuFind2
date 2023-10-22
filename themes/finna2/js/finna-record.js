@@ -163,11 +163,39 @@ finna.record = (function finnaRecord() {
     });
   }
 
+  function wayfinderPlacementLinkLookup(element) {
+    // const url = VuFind.path + '/AJAX/JSON?' + $.param({
+    //   method: 'wayfinderPlacementLinkLookup',
+    // });
+    const url = VuFind.path + '/AJAX/JSON?' + new URLSearchParams({
+      method: 'wayfinderPlacementLinkLookup',
+      placement: element.dataset.location
+    });
+
+    fetch(url)
+      .then(response => response.json())
+      .then(responseJSON => {
+        let wayfinder_link = document.createElement('a');
+        wayfinder_link.className = 'icon-link__label';
+        wayfinder_link.setAttribute('target', '_blank');
+        wayfinder_link.setAttribute('href', responseJSON.data.marker_url);
+        wayfinder_link.innerHTML = VuFind.icon('map-marker');
+
+        element.append(wayfinder_link);
+      }).catch(() => {
+        element.remove();
+      });
+  }
+
   function setUpCheckRequest() {
     checkRequestsAreValid($('.expandedCheckRequest').removeClass('expandedCheckRequest'), 'Hold');
     checkRequestsAreValid($('.expandedCheckStorageRetrievalRequest').removeClass('expandedCheckStorageRetrievalRequest'), 'StorageRetrievalRequest');
     checkRequestsAreValid($('.expandedCheckILLRequest').removeClass('expandedCheckILLRequest'), 'ILLRequest');
     fetchHoldingsDetails($('.expandedGetDetails').removeClass('expandedGetDetails'));
+
+    document.querySelectorAll('.js-wayfinder-placeholder').forEach((element) => {
+      wayfinderPlacementLinkLookup(element);
+    });
   }
 
   function initHoldingsControls() {

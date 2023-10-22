@@ -74,6 +74,7 @@ $config = [
             'Finna\View\Helper\Root\UserAgent' => 'Finna\View\Helper\Root\UserAgentFactory',
             'Finna\View\Helper\Root\UserListEmbed' => 'Finna\View\Helper\Root\UserListEmbedFactory',
             'Finna\View\Helper\Root\UserPublicName' => 'Laminas\ServiceManager\Factory\InvokableFactory',
+
             'VuFind\View\Helper\Root\Linkify' => 'Finna\View\Helper\Root\LinkifyFactory',
         ],
         'aliases' => [
