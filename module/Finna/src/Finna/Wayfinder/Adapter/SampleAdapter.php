@@ -53,10 +53,8 @@ class SampleAdapter implements LocationAdapterInterface
      */
     public function getLocation(array $data): WayfinderPlacement
     {
-        // Read what we have as placement data in $data
-        // and map contents of $data array to what Wayfinder expects.
         return (new WayfinderPlacement())
-            ->setBranch('sample')
+            ->setBranch($data['source'] ?? '')
             ->setDepartment($data['branch'] ?? '')
             ->setLocation($data['department'] ?? '')
             ->setDk5($data['callnumber'] ?? '');

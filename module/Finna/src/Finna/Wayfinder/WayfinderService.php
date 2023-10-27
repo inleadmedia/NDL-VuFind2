@@ -83,11 +83,37 @@ class WayfinderService
      */
     public function getMarker(array $payload): string
     {
+        $url = $this->getWayFinderUrl($payload['source'] ?? '');
+
         $adapter = $this->container->get(
             $this->config['General']['adapter']
         );
 
-        return $this->fetchMarker($adapter->getLocation($payload));
+        return $this->fetchMarker($url, $adapter->getLocation($payload));
+    }
+
+    /**
+     * Gets from config the wayfinder service url.
+     *
+     * @param string $source Item source identifier.
+     *
+     * @return string
+     */
+    public function getWayFinderUrl(string $source): string
+    {
+        return rtrim($this->config[$source]['wf_url'] ?? '', '/');
+    }
+
+    /**
+     * Get from config the marker url.
+     *
+     * @param string $source Item source identifier.
+     *
+     * @return string
+     */
+    public function getMarkerUrl(string $source): string
+    {
+        return rtrim($this->config[$source]['marker_url'] ?? '', '/');
     }
 
     /**
@@ -104,10 +130,11 @@ class WayfinderService
      * Fetches map link from wayfinder based on holding information.
      *
      * @param WayfinderPlacement $placement Placement DTO.
+     * @param string $url                   Wayfinder service url.
      *
      * @return string
      */
-    protected function fetchMarker(WayfinderPlacement $placement): string
+    protected function fetchMarker(string $url, WayfinderPlacement $placement): string
     {
         $args = array_map(
             static function ($v) {
@@ -121,7 +148,6 @@ class WayfinderService
             return '';
         }
 
-        $url = rtrim($this->config['General']['url'], '/') . '/includes';
         $response = $this->httpService->get($url, $args);
 
         if ($response->getStatusCode() !== Response::STATUS_CODE_200) {
@@ -149,29 +175,23 @@ class WayfinderService
             return '';
         }
 
-        return $this->config['General']['url'] . $decoded['link'];
+        return $this->getMarkerUrl($placement->getBranch()) . $decoded['link'];
     }
 
     /**
-     * Checks for valid config url.
+     * Checks for valid config.
      *
      * @return bool
      */
-    protected function isValidConfig(): bool
+    public function isValidConfig(): bool
     {
         if (empty($this->config)) {
             return false;
         }
 
-        $url = parse_url($this->config['General']['url']);
-        if (!$url) {
-            return false;
-        }
+        $enabled = filter_var($this->config['General']['enabled'], FILTER_VALIDATE_BOOL);
+        $adapter = $this->config['General']['adapter'] ?? '';
 
-        if (empty(array_filter($url))) {
-            return false;
-        }
-
-        return true;
+        return $enabled && !empty($adapter);
     }
 }

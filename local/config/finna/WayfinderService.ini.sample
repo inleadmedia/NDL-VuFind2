@@ -1,4 +1,21 @@
+; Wayfinder item placement location service.
+
 [General]
-; E.g.: "https://wf-hambib.stg.easyscreen.io"
-url = "http://localhost"
+enabled = false
 adapter = "WayfinderSampleAdapter"
+
+[sample]
+wf_url = "http://wf-hambib.stg.easyscreen.io/includes"
+marker_url = "http://wf-hambib.stg.easyscreen.io"
+
+[piki]
+wf_url = "http://wf-piki.stg.easyscreen.io/includes"
+marker_url = "http://wf-piki.stg.easyscreen.io"
+
+[vari]
+wf_url = "http://wf-vari.stg.easyscreen.io/includes"
+marker_url = "http://wf-vari.stg.easyscreen.io"
+
+[helmet]
+wf_url = "http://wf-helmet.stg.easyscreen.io/includes"
+marker_url = "http://wf-helmet.stg.easyscreen.io"

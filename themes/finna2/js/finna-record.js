@@ -164,9 +164,6 @@ finna.record = (function finnaRecord() {
   }
 
   function wayfinderPlacementLinkLookup(element) {
-    // const url = VuFind.path + '/AJAX/JSON?' + $.param({
-    //   method: 'wayfinderPlacementLinkLookup',
-    // });
     const url = VuFind.path + '/AJAX/JSON?' + new URLSearchParams({
       method: 'wayfinderPlacementLinkLookup',
       placement: element.dataset.location
@@ -180,6 +177,11 @@ finna.record = (function finnaRecord() {
         wayfinder_link.setAttribute('target', '_blank');
         wayfinder_link.setAttribute('href', responseJSON.data.marker_url);
         wayfinder_link.innerHTML = VuFind.icon('map-marker');
+
+        let reader_tag = document.createElement('span');
+        reader_tag.className = 'sr-only';
+        reader_tag.innerHTML = 'View item placement on interactive map';
+        wayfinder_link.append(reader_tag);
 
         element.append(wayfinder_link);
       }).catch(() => {
