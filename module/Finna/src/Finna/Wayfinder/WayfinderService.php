@@ -129,8 +129,8 @@ class WayfinderService
     /**
      * Fetches map link from wayfinder based on holding information.
      *
+     * @param string             $url       Wayfinder service url.
      * @param WayfinderPlacement $placement Placement DTO.
-     * @param string $url                   Wayfinder service url.
      *
      * @return string
      */
