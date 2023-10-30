@@ -172,7 +172,6 @@ finna.record = (function finnaRecord() {
     fetch(url)
       .then(response => response.json())
       .then(responseJSON => {
-        let wayfinder_link = document.createElement('a');
         let link_template = element.querySelector('.js-wayfinder-link');
         if (!link_template) {
           element.remove();
@@ -186,8 +185,6 @@ finna.record = (function finnaRecord() {
         }
         link.setAttribute('href', responseJSON.data.marker_url);
         element.innerHTML = link_container.innerHTML;
-
-        element.append(wayfinder_link);
       }).catch(() => {
         element.remove();
       });
