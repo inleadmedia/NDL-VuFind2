@@ -173,15 +173,19 @@ finna.record = (function finnaRecord() {
       .then(response => response.json())
       .then(responseJSON => {
         let wayfinder_link = document.createElement('a');
-        wayfinder_link.className = 'icon-link__label';
-        wayfinder_link.setAttribute('target', '_blank');
-        wayfinder_link.setAttribute('href', responseJSON.data.marker_url);
-        wayfinder_link.innerHTML = VuFind.icon('map-marker');
-
-        let reader_tag = document.createElement('span');
-        reader_tag.className = 'sr-only';
-        reader_tag.innerHTML = 'View item placement on interactive map';
-        wayfinder_link.append(reader_tag);
+        let link_template = element.querySelector('.js-wayfinder-link');
+        if (!link_template) {
+          element.remove();
+          return;
+        }
+        let link_container = link_template.cloneNode(true);
+        let link = link_container.content.querySelector('a');
+        if (!link) {
+          element.remove();
+          return;
+        }
+        link.setAttribute('href', responseJSON.data.marker_url);
+        element.innerHTML = link_container.innerHTML;
 
         element.append(wayfinder_link);
       }).catch(() => {

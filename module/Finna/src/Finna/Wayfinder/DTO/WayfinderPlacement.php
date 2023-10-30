@@ -45,7 +45,7 @@ class WayfinderPlacement
      *
      * @var string
      */
-    protected string $branch;
+    protected string $branch = '';
 
     /**
      * Department placement.
