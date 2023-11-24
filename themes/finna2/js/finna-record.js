@@ -172,6 +172,11 @@ finna.record = (function finnaRecord() {
     fetch(url)
       .then(response => response.json())
       .then(responseJSON => {
+        if (!responseJSON.data.marker_url) {
+          element.remove();
+          return;
+        }
+
         let link_template = element.querySelector('.js-wayfinder-link');
         if (!link_template) {
           element.remove();
