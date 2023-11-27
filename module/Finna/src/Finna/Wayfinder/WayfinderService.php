@@ -90,8 +90,8 @@ class WayfinderService
             $adapter = $this->container->get(
                 $this->getWayFinderAdapter($payload['source'] ?? '')
             );
-        } catch (NotFoundExceptionInterface|ContainerExceptionInterface $e) {
-            $this->logError((string) $e);
+        } catch (NotFoundExceptionInterface | ContainerExceptionInterface $e) {
+            $this->logError((string)$e);
 
             return '';
         }
