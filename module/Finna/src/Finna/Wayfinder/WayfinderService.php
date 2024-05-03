@@ -110,7 +110,11 @@ class WayfinderService
             return '';
         }
 
-        $response = $this->httpService->post($url, json_encode($placement));
+        $response = $this->httpService->post(
+            $url,
+            json_encode(['placement' => $placement]),
+            'application/json; charset=UTF-8'
+        );
 
         if ($response->getStatusCode() !== Response::STATUS_CODE_200) {
             $this->logError(
