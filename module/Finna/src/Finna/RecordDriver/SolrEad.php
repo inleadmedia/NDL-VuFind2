@@ -53,7 +53,9 @@ use function is_array;
  */
 class SolrEad extends SolrDefault implements \Laminas\Log\LoggerAwareInterface
 {
-    use Feature\SolrFinnaTrait;
+    use Feature\SolrFinnaTrait {
+        getSupportedCitationFormats as getSupportedCitationFormatsFinna;
+    }
     use Feature\FinnaXmlReaderTrait;
     use Feature\FinnaUrlCheckTrait;
     use \VuFind\Log\LoggerAwareTrait;
@@ -628,6 +630,23 @@ class SolrEad extends SolrDefault implements \Laminas\Log\LoggerAwareInterface
     }
 
     /**
+     * Get an array of strings representing citation formats supported
+     * by this record's data (empty if none).  For possible legal values,
+     * see /application/themes/root/helpers/Citation.php, getCitation()
+     * method.
+     *
+     * @return array Strings representing citation formats.
+     */
+    protected function getSupportedCitationFormats()
+    {
+        $supportedFormats = $this->getSupportedCitationFormatsFinna();
+        if (isset($this->fields['hierarchy_top_id'])) {
+            $supportedFormats[] = 'Archive';
+        }
+        return $supportedFormats;
+    }
+
+    /**
      * Get parent archives
      *
      * @return array
@@ -757,8 +776,9 @@ class SolrEad extends SolrDefault implements \Laminas\Log\LoggerAwareInterface
         // Get unit id for comparison with it:
         $unitId = '';
         foreach ($xml->did->unitid ?? [] as $id) {
-            if ('Analoginen' === (string)$id['label']) {
-                $unitId = (string)$id . ' ';
+            $checkedId = (string)$id . ' ';
+            if (str_starts_with($mainTitle, \Normalizer::normalize($checkedId, \Normalizer::FORM_KC))) {
+                $unitId = $checkedId;
                 break;
             }
         }
