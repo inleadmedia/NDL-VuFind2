@@ -110,6 +110,10 @@ class WayfinderService
             return '';
         }
 
+        array_walk($placement, static function (&$v) {
+            $v = trim($v);
+        });
+
         $response = $this->httpService->post(
             $url,
             json_encode(['placement' => $placement]),
